@@ -1,0 +1,80 @@
+﻿<Window x:Class="BrightnessManagerWin.Settings"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:BrightnessManagerWin"
+		mc:Ignorable="d"
+		Title="Settings" Height="250" Width="600" ResizeMode="NoResize" FontSize="16" KeyDown="Window_KeyDown">
+	<Grid x:Name="grMain" Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="10"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
+		
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Label Grid.Row="0" Content="Fade Duration [min]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="1" Content="Update Interval [s]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="2" Content="Number of monitors" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="3" Content="Set position of monitor" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+			<TextBox Grid.Row="0" Grid.Column="1" x:Name="tbFadeDuration" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbFadeDuration_TextChanged" LostFocus="TextBoxLostFocus"/>
+			<TextBox Grid.Row="1" Grid.Column="1" x:Name="tbUpdateInterval" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbUpdateInterval_TextChanged" LostFocus="TextBoxLostFocus"/>
+
+			<Grid Grid.Row="2" Grid.Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="50"/>
+					<ColumnDefinition Width="50"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBox Grid.Column="0" x:Name="tbNumMonitors" Height="30" VerticalContentAlignment="Center" TextChanged="tbNumMonitors_TextChanged" LostFocus="TextBoxLostFocus"/>
+				<Button Grid.Column="1" x:Name="btNumMonitorsDown" Content="-" Height="30" Click="btNumMonitorsDown_Click"/>
+				<Button Grid.Column="2" x:Name="btNumMonitorsUp" Content="+" Height="30" Click="btNumMonitorsUp_Click"/>
+
+			</Grid>
+
+			<Grid Grid.Row="3" Grid.Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="50"/>
+					<ColumnDefinition Width="50"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<TextBox Grid.Column="0" x:Name="tbMonitorPos" Height="30" VerticalContentAlignment="Center" TextChanged="tbMonitorPos_TextChanged" LostFocus="TextBoxLostFocus"/>
+				<Button Grid.Column="1" x:Name="btMonitorPosDown" Content="-" Height="30" Click="btMonitorPosDown_Click"/>
+				<Button Grid.Column="2" x:Name="btMonitorPosUp" Content="+" Height="30" Click="btMonitorPosUp_Click"/>
+				<Button Grid.Column="3" x:Name="btSetMonitorPos" Content="Set" Width="150" Height="30" HorizontalAlignment="Right" Click="btSetMonitorPos_Click"/>
+				<TextBlock Grid.Column="3" x:Name="lbInstructions" Width="185" Height="50" HorizontalAlignment="Right" Visibility="Hidden" FontSize="12"/>
+
+			</Grid>
+			
+		</Grid>
+
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Button Grid.Column="0" x:Name="btCancel" Content="Cancel" Click="btCancel_Click"/>
+			<Button Grid.Column="2" x:Name="btOK" Content="OK" Click="btOK_Click"/>
+
+		</Grid>
+
+	</Grid>
+</Window>

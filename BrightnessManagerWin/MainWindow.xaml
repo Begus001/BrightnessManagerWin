@@ -1,0 +1,166 @@
+﻿<Window x:Class="BrightnessManagerWin.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:BrightnessManagerWin"
+		mc:Ignorable="d"
+		Title="BrightnessManager" Height="500" Width="600" ResizeMode="NoResize" Closed="Window_Closed" Closing="Window_Closing">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition/>
+			<RowDefinition Height="60"/>
+		</Grid.RowDefinitions>
+
+		<Menu Grid.Row="0">
+			<MenuItem Header="File">
+				<MenuItem x:Name="btSettings" Header="Settings" Click="btSettings_Click"/>
+				<Separator/>
+				<MenuItem x:Name="btExit" Header="Exit" Click="btExit_Click"/>
+			</MenuItem>
+			<MenuItem Header="Help">
+				<MenuItem x:Name="btCheckUpdate" Header="Check for updates" Click="btCheckUpdate_Click"/>
+				<Separator/>
+				<MenuItem x:Name="btAbout" Header="About" Click="btAbout_Click"/>
+			</MenuItem>
+		</Menu>
+
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Grid Grid.Column="0" Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Grid Grid.Column="0">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition Height="2*"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Label Content="Sunset" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"/>
+					<Button Grid.Row="1" x:Name="btSunsetUp" Content="+" Width="100" FontSize="20" Margin="0 5 0 0" Click="btSunsetUp_Click"/>
+					<TextBox Grid.Row="2" x:Name="tbSunset" Width="100" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" LostFocus="tbSunset_LostFocus" KeyDown="tbSunset_KeyDown"/>
+					<Button Grid.Row="3" x:Name="btSunsetDown" Content="-" Width="100" FontSize="20" Margin="0 0 0 5" Click="btSunsetDown_Click"/>
+
+				</Grid>
+
+
+
+				<Grid Grid.Column="0" Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition Height="2*"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Label Content="Night Brightness" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"/>
+					<Button Grid.Row="1" x:Name="btNightBrghtUp" Content="+" Width="100" FontSize="20" Margin="0 5 0 0" Click="btNightBrghtUp_Click"/>
+					<TextBox Grid.Row="2" x:Name="tbNightBrght" Width="100" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbNightBrght_TextChanged" LostFocus="TextboxLostFocus"/>
+					<Button Grid.Row="3" x:Name="btNightBrghtDown" Content="-" Width="100" FontSize="20" Margin="0 0 0 5" Click="btNightBrghtDown_Click"/>
+
+				</Grid>
+
+			</Grid>
+
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Label Grid.Row="1" x:Name="lbTimeToSunset" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+				<Label Grid.Row="2" x:Name="lbTimeToSunrise" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+				<Label Grid.Row="3" x:Name="lbBrightness" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+
+			</Grid>
+
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition Height="2*"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Label Content="Sunrise" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"/>
+					<Button Grid.Row="1" x:Name="btSunriseUp" Content="+" Width="100" FontSize="20" Margin="0 5 0 0" Click="btSunriseUp_Click"/>
+					<TextBox Grid.Row="2" x:Name="tbSunrise" Width="100" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" LostFocus="tbSunrise_LostFocus" KeyDown="tbSunrise_KeyDown"/>
+					<Button Grid.Row="3" x:Name="btSunriseDown" Content="-" Width="100" FontSize="20" Margin="0 0 0 5" Click="btSunriseDown_Click"/>
+
+				</Grid>
+
+				<Grid Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition Height="2*"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Label Content="Day Brightness" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"/>
+					<Button Grid.Row="1" x:Name="btDayBrghtUp" Content="+" Width="100" FontSize="20" Margin="0 5 0 0" Click="btDayBrghtUp_Click"/>
+					<TextBox Grid.Row="2" x:Name="tbDayBrght" Width="100" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbDayBrght_TextChanged" LostFocus="TextboxLostFocus"/>
+					<Button Grid.Row="3" x:Name="btDayBrghtDown" Content="-" Width="100" FontSize="20" Margin="0 0 0 5" Click="btDayBrghtDown_Click"/>
+
+				</Grid>
+
+			</Grid>
+
+		</Grid>
+
+		<Grid Grid.Row="3" Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="250"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Grid Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="70"/>
+					<ColumnDefinition Width="70"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBox Grid.Column="0" x:Name="tbMonitor" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbMonitor_TextChanged" LostFocus="TextboxLostFocus"/>
+				<Button Grid.Column="1" x:Name="btMonitorPrev" Content="-" FontSize="20" Click="btMonitorPrev_Click"/>
+				<Button Grid.Column="2" x:Name="btMonitorNext" Content="+" FontSize="20" Click="btMonitorNext_Click"/>
+
+			</Grid>
+
+			<Grid Grid.Column="1" Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Column="0" x:Name="btCopyToAll" Content="Copy to all" Margin="0 0 5 0" FontSize="20" Click="btCopyToAll_Click"/>
+				<Button Grid.Column="1" x:Name="btApply" Content="Apply" Margin="0 0 5 0" FontSize="20" Click="btApply_Click"/>
+				<Button Grid.Column="2" x:Name="btRevert" Content="Revert" Margin="0 0 5 0" FontSize="20" Click="btRevert_Click"/>
+
+			</Grid>
+
+		</Grid>
+
+	</Grid>
+</Window>
