@@ -23,17 +23,20 @@
 				<RowDefinition/>
 				<RowDefinition/>
 				<RowDefinition/>
+				<RowDefinition/>
 			</Grid.RowDefinitions>
+			
+			<Label Grid.Row="0" Content="Open in system tray" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="1" Content="Fade Duration [min]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="2" Content="Update Interval [s]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="3" Content="Number of monitors" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<Label Grid.Row="4" Content="Set position of monitor" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-			<Label Grid.Row="0" Content="Fade Duration [min]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-			<Label Grid.Row="1" Content="Update Interval [s]" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-			<Label Grid.Row="2" Content="Number of monitors" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-			<Label Grid.Row="3" Content="Set position of monitor" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			<CheckBox Grid.Row="0" Grid.Column="1" x:Name="cbSysTray" VerticalAlignment="Center" Checked="cbSysTray_ValueChanged" Unchecked="cbSysTray_ValueChanged"/>
+			<TextBox Grid.Row="1" Grid.Column="1" x:Name="tbFadeDuration" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbFadeDuration_TextChanged" LostFocus="TextBoxLostFocus"/>
+			<TextBox Grid.Row="2" Grid.Column="1" x:Name="tbUpdateInterval" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbUpdateInterval_TextChanged" LostFocus="TextBoxLostFocus"/>
 
-			<TextBox Grid.Row="0" Grid.Column="1" x:Name="tbFadeDuration" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbFadeDuration_TextChanged" LostFocus="TextBoxLostFocus"/>
-			<TextBox Grid.Row="1" Grid.Column="1" x:Name="tbUpdateInterval" Width="200" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextChanged="tbUpdateInterval_TextChanged" LostFocus="TextBoxLostFocus"/>
-
-			<Grid Grid.Row="2" Grid.Column="1">
+			<Grid Grid.Row="3" Grid.Column="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="50"/>
@@ -46,7 +49,7 @@
 
 			</Grid>
 
-			<Grid Grid.Row="3" Grid.Column="1">
+			<Grid Grid.Row="4" Grid.Column="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="50"/>

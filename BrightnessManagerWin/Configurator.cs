@@ -57,6 +57,7 @@ namespace BrightnessManagerWin
 		public int NumMonitors { get; set; } = 1;
 		public int FadeDuration { get; set; } = 60;
 		public int UpdateInterval { get; set; } = 10;
+		public bool OpenInTray { get; set; } = false;
 
 		private int monIndex = 0;
 		public int MonIndex
@@ -253,6 +254,10 @@ namespace BrightnessManagerWin
 							UpdateInterval = int.Parse(value);
 							break;
 
+						case "openInTray":
+							OpenInTray = bool.Parse(value);
+							break;
+
 						case "mon":
 							mon = int.Parse(value);
 							break;
@@ -305,6 +310,7 @@ namespace BrightnessManagerWin
 					s.WriteLine($"numMonitors={NumMonitors}");
 					s.WriteLine($"fadeDuration={FadeDuration}");
 					s.WriteLine($"updateInterval={UpdateInterval}");
+					s.WriteLine($"openInTray={OpenInTray}");
 					for (int i = 0; i < NumMonitors; i++)
 					{
 						s.WriteLine();

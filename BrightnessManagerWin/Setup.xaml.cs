@@ -138,6 +138,7 @@ namespace BrightnessManagerWin
 					s.WriteLine($"numMonitors={numMonitors}");
 					s.WriteLine($"fadeDuration=60");
 					s.WriteLine($"updateInterval=10");
+					s.WriteLine($"openInTray=false");
 					for (int i = 0; i < numMonitors; i++)
 					{
 						s.WriteLine();

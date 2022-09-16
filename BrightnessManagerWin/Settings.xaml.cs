@@ -52,6 +52,7 @@ namespace BrightnessManagerWin
 					updateInterval = value;
 			}
 		}
+		public bool OpenInTray { get; set; }
 		public List<POINT> Points { get; set; }
 
 		private int pointIndex = 0;
@@ -90,6 +91,7 @@ namespace BrightnessManagerWin
 			tbUpdateInterval.Text = UpdateInterval.ToString();
 			tbNumMonitors.Text = NumMonitors.ToString();
 			tbMonitorPos.Text = PointIndex.ToString();
+			cbSysTray.IsChecked = OpenInTray;
 
 			AdjustPointsList();
 
@@ -248,6 +250,12 @@ namespace BrightnessManagerWin
 
 				FillValues();
 			}
+		}
+
+		private void cbSysTray_ValueChanged(object sender, RoutedEventArgs e)
+		{
+			if (cbSysTray.IsChecked.HasValue)
+				OpenInTray = cbSysTray.IsChecked.Value;
 		}
 	}
 }

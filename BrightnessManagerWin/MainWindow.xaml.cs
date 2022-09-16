@@ -40,7 +40,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.1.0");
+		public Version version { get; set; } = new Version("1.1.1");
 
 		public MainWindow()
 		{
@@ -66,10 +66,21 @@ namespace BrightnessManagerWin
 			InitializeComponent();
 			tbMonitor.Text = "1";
 
+			SetupTrayIcon();
 			CheckUpdate(true);
+
+			if (cfg.OpenInTray)
+				ToTray();
 
 			timer.Elapsed += timerElapsed;
 			timer.Start();
+		}
+
+		private void SetupTrayIcon()
+		{
+			trayIcon.Icon = SystemIcons.Information;
+			trayIcon.Text = "BrightnessManager";
+			trayIcon.Click += TrayIcon_Click;
 		}
 
 		private void timerElapsed(object sender, ElapsedEventArgs e)
@@ -274,26 +285,37 @@ namespace BrightnessManagerWin
 			cfg.ShouldClose = true;
 		}
 
+		private void ToTray()
+		{
+			trayIcon.Visible = true;
+			Visibility = Visibility.Hidden;
+		}
+
+		private void FromTray()
+		{
+			trayIcon.Visible = false;
+			Visibility = Visibility.Visible;
+		}
+
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			e.Cancel = true;
-			trayIcon.Icon = SystemIcons.Information;
-			trayIcon.Visible = true;
-			trayIcon.Text = "BrightnessManager";
-			trayIcon.Click += TrayIcon_Click;
-			Visibility = Visibility.Hidden;
+			if (!cfg.ShouldClose)
+			{ 
+				e.Cancel = true;
+				ToTray();
+			}
 		}
 
 		private void TrayIcon_Click(object sender, EventArgs e)
 		{
-			trayIcon.Visible = false;
-			Visibility = Visibility.Visible;
+			FromTray();
 		}
 
 		private void btExit_Click(object sender, RoutedEventArgs e)
 		{
 			timer.Stop();
 			Thread.Sleep(100);
+			cfg.ShouldClose = true;
 			Application.Current.Shutdown();
 		}
 
@@ -303,6 +325,7 @@ namespace BrightnessManagerWin
 			settings.NumMonitors = cfg.NumMonitors;
 			settings.FadeDuration = cfg.FadeDuration;
 			settings.UpdateInterval = cfg.UpdateInterval;
+			settings.OpenInTray = cfg.OpenInTray;
 			settings.Points = cfg.MonitorPoints.ToList();
 			settings.FillValues();
 			settings.ShowDialog();
@@ -311,6 +334,7 @@ namespace BrightnessManagerWin
 			{
 				cfg.FadeDuration = settings.FadeDuration;
 				cfg.UpdateInterval = settings.UpdateInterval;
+				cfg.OpenInTray = settings.OpenInTray;
 				if (settings.NumMonitors > cfg.NumMonitors)
 				{
 					cfg.AddMonitors(settings.NumMonitors - cfg.NumMonitors);
