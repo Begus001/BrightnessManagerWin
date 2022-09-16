@@ -40,7 +40,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.1.1");
+		public Version version { get; set; } = new Version("1.1.2");
 
 		public MainWindow()
 		{
@@ -81,6 +81,9 @@ namespace BrightnessManagerWin
 			trayIcon.Icon = SystemIcons.Information;
 			trayIcon.Text = "BrightnessManager";
 			trayIcon.Click += TrayIcon_Click;
+
+			MenuItem exit = new MenuItem("Exit", (sender, e) => btExit_Click(sender, null));
+			trayIcon.ContextMenu = new ContextMenu(new MenuItem[] { exit });
 		}
 
 		private void timerElapsed(object sender, ElapsedEventArgs e)
@@ -300,7 +303,7 @@ namespace BrightnessManagerWin
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			if (!cfg.ShouldClose)
-			{ 
+			{
 				e.Cancel = true;
 				ToTray();
 			}
