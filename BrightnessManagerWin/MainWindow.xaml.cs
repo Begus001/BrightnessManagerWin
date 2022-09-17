@@ -40,7 +40,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.1.3");
+		public Version version { get; set; } = new Version("1.1.4");
 
 		public MainWindow()
 		{
@@ -299,6 +299,7 @@ namespace BrightnessManagerWin
 		{
 			trayIcon.Visible = false;
 			Visibility = Visibility.Visible;
+			Activate();
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
