@@ -27,6 +27,8 @@ using System.IO;
 using System.Reflection;
 using System.Net;
 using Path = System.IO.Path;
+using Brushes = System.Windows.Media.Brushes;
+using Control = System.Windows.Controls.Control;
 
 namespace BrightnessManagerWin
 {
@@ -40,7 +42,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.1.4");
+		public Version version { get; set; } = new Version("1.2.0");
 
 		public MainWindow()
 		{
@@ -106,6 +108,7 @@ namespace BrightnessManagerWin
 			tbSunrise.Text = cfg.MonCurrent.SunriseStr;
 			tbDayBrght.Text = cfg.MonCurrent.DayBrightness.ToString();
 			tbNightBrght.Text = cfg.MonCurrent.NightBrightness.ToString();
+			updateEnabledButton();
 
 			cfg.UpdateTimes();
 
@@ -417,6 +420,30 @@ namespace BrightnessManagerWin
 		private void btCheckUpdate_Click(object sender, RoutedEventArgs e)
 		{
 			CheckUpdate(false);
+		}
+
+		private void btEnabled_Click(object sender, RoutedEventArgs e)
+		{
+			cfg.MonCurrent.Enabled = !cfg.MonCurrent.Enabled;
+			cfg.MonCurrentImmediate.Enabled = cfg.MonCurrent.Enabled;
+			updateEnabledButton();
+		}
+
+		private void updateEnabledButton()
+		{
+			if (cfg.MonCurrent.Enabled)
+			{
+				btEnabled.Background = Brushes.MediumSeaGreen;
+				btEnabled.Content = "Enabled";
+				cfg.SetBrightness(cfg.MonIndex - 1, cfg.CalculateBrightness(cfg.MonIndex - 1));
+			}
+			else
+			{
+				btEnabled.ClearValue(Control.BackgroundProperty);
+				btEnabled.Content = "Enable";
+			}
+
+			cfg.SaveConfig();
 		}
 	}
 }

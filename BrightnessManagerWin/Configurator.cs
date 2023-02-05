@@ -75,6 +75,7 @@ namespace BrightnessManagerWin
 		private Thread brightnessThread;
 
 		public MonitorConfig MonCurrent => monitorConfigsTmp[monIndex];
+		public MonitorConfig MonCurrentImmediate => monitorConfigs[monIndex];
 		public MonitorMiscInfo MiscCurrent => monitorMisc[monIndex];
 
 		private List<MonitorConfig> monitorConfigs = new List<MonitorConfig>();
@@ -116,7 +117,7 @@ namespace BrightnessManagerWin
 			brightnessThread.Start();
 		}
 
-		private void SetBrightness(int i, int brightness)
+		public void SetBrightness(int i, int brightness)
 		{
 			monitorMisc[i].CurrentBrightness = brightness;
 
@@ -135,7 +136,7 @@ namespace BrightnessManagerWin
 			}
 		}
 
-		private int CalculateBrightness(int i)
+		public int CalculateBrightness(int i)
 		{
 			long now = (long)DateTime.Now.TimeOfDay.TotalSeconds;
 			long sunset = (long)monitorConfigs[i].Sunset.TotalSeconds - now;
@@ -171,7 +172,8 @@ namespace BrightnessManagerWin
 			{
 				for (int i = 0; i < NumMonitors; i++)
 				{
-					SetBrightness(i, CalculateBrightness(i));
+					if (monitorConfigs[i].Enabled)
+						SetBrightness(i, CalculateBrightness(i));
 				}
 
 				for (int i = 0; i < UpdateInterval * 2; i++)
@@ -190,7 +192,8 @@ namespace BrightnessManagerWin
 			SaveConfig();
 			for (int i = 0; i < NumMonitors; i++)
 			{
-				SetBrightness(i, CalculateBrightness(i));
+				if (monitorConfigs[i].Enabled)
+					SetBrightness(i, CalculateBrightness(i));
 			}
 		}
 
@@ -286,6 +289,11 @@ namespace BrightnessManagerWin
 							monitorConfigsTmp[mon].DayBrightness = int.Parse(value);
 							break;
 
+						case "enabled":
+							monitorConfigs[mon].Enabled = bool.Parse(value);
+							monitorConfigsTmp[mon].Enabled = bool.Parse(value);
+							break;
+
 						default:
 							throw new Exception("Unexpected value encountered in config file");
 					}
@@ -320,6 +328,7 @@ namespace BrightnessManagerWin
 						s.WriteLine($"sunrise={monitorConfigs[i].SunriseStr}");
 						s.WriteLine($"nightBrightness={monitorConfigs[i].NightBrightness}");
 						s.WriteLine($"dayBrightness={monitorConfigs[i].DayBrightness}");
+						s.WriteLine($"enabled={monitorConfigs[i].Enabled}");
 					}
 				}
 			}

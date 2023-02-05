@@ -67,9 +67,11 @@ namespace BrightnessManagerWin
 			}
 		}
 
+		public bool Enabled { get; set; } = true;
+
 		public object Clone()
 		{
-			return new MonitorConfig() { Sunset = Sunset, Sunrise = Sunrise, dayBrght= dayBrght, nightBrght = nightBrght };
+			return new MonitorConfig() { Sunset = Sunset, Sunrise = Sunrise, dayBrght = dayBrght, nightBrght = nightBrght, Enabled = Enabled };
 		}
 	}
 }

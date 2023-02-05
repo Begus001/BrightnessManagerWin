@@ -75,13 +75,14 @@
 
 			<Grid Grid.Column="1">
 				<Grid.RowDefinitions>
-					<RowDefinition/>
+					<RowDefinition Height="50"/>
 					<RowDefinition Height="50"/>
 					<RowDefinition Height="50"/>
 					<RowDefinition Height="50"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
 
+				<Button Grid.Row="0" x:Name="btEnabled" Width="100" Height="25" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Enabled" Background="MediumSeaGreen" Click="btEnabled_Click" />
 				<Label Grid.Row="1" x:Name="lbTimeToSunset" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
 				<Label Grid.Row="2" x:Name="lbTimeToSunrise" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
 				<Label Grid.Row="3" x:Name="lbBrightness" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
