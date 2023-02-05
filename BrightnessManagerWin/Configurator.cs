@@ -59,6 +59,17 @@ namespace BrightnessManagerWin
 		public int UpdateInterval { get; set; } = 10;
 		public bool OpenInTray { get; set; } = false;
 
+		private int manBrght = 100;
+		public int ManualBrightness
+		{
+			get { return manBrght; }
+			set
+			{
+				if (value >= 0 && value <= 100)
+					manBrght = value;
+			}
+		}
+
 		private int monIndex = 0;
 		public int MonIndex
 		{
@@ -126,6 +137,8 @@ namespace BrightnessManagerWin
 			GetPhysicalMonitorsFromHMONITOR(hmon, 1, hpmon);
 			SetMonitorBrightness(hpmon[0].hPhysicalMonitor, brightness);
 			DestroyPhysicalMonitor(hpmon[0].hPhysicalMonitor);
+
+			Debug.WriteLine($"Setting brightness {brightness} of monitor {i}");
 		}
 
 		public void UpdateTimes()
