@@ -42,7 +42,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.2.0");
+		public Version version { get; set; } = new Version("1.3.1");
 
 		public MainWindow()
 		{
@@ -109,6 +109,7 @@ namespace BrightnessManagerWin
 			tbDayBrght.Text = cfg.MonCurrent.DayBrightness.ToString();
 			tbNightBrght.Text = cfg.MonCurrent.NightBrightness.ToString();
 			updateEnabledButton();
+			tbManual.Text = cfg.ManualBrightness.ToString();
 
 			cfg.UpdateTimes();
 
@@ -444,6 +445,42 @@ namespace BrightnessManagerWin
 			}
 
 			cfg.SaveConfig();
+		}
+
+		private void btManualUp_Click(object sender, RoutedEventArgs e)
+		{
+			tbManual.Text = (int.Parse(tbManual.Text) +1).ToString();
+		}
+
+		private void btManualDown_Click(object sender, RoutedEventArgs e)
+		{
+			tbManual.Text = (int.Parse(tbManual.Text) - 1).ToString();
+		}
+
+		private void tbManual_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			int before = cfg.ManualBrightness;
+			try
+			{
+				cfg.ManualBrightness = int.Parse(tbManual.Text);
+				tbManual.Text = cfg.ManualBrightness.ToString();
+				if (before == cfg.ManualBrightness)
+					tbManual.CaretIndex = tbManual.Text.Length;
+			}
+			catch
+			{
+				if (tbManual.Text == "") return;
+				tbManual.Text = cfg.ManualBrightness.ToString();
+				tbManual.CaretIndex = tbManual.Text.Length;
+			}
+		}
+
+		private void btManualSet_Click(object sender, RoutedEventArgs e)
+		{
+			cfg.MonCurrent.Enabled = false;
+			cfg.MonCurrentImmediate.Enabled = false;
+			cfg.SetBrightness(cfg.MonIndex - 1, cfg.ManualBrightness);
+			updateEnabledButton();
 		}
 	}
 }
