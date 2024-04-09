@@ -42,7 +42,7 @@ namespace BrightnessManagerWin
 
 		private NotifyIcon trayIcon = new NotifyIcon();
 
-		public Version version { get; set; } = new Version("1.3.1");
+		public Version version { get; set; } = new Version("1.3.2");
 
 		public MainWindow()
 		{
@@ -366,7 +366,7 @@ namespace BrightnessManagerWin
 
 		private void btAbout_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show($"BrightnessManagerWin {version}\nBenjamin Goisser 2022\nhttps://github.com/Begus001", "About");
+			MessageBox.Show($"BrightnessManagerWin {version}\nBenjamin Goisser 2024\nhttps://github.com/Begus001", "About");
 		}
 
 		private void Update()
@@ -391,8 +391,18 @@ namespace BrightnessManagerWin
 
 		private void CheckUpdate(bool onStartup)
 		{
-			WebRequest req = WebRequest.CreateHttp("http://begus.ddns.net/bmupdate/version.txt");
-			WebResponse resp = req.GetResponse();
+			WebRequest req;
+			WebResponse resp;
+
+			try { 
+				req = WebRequest.CreateHttp("https://begus.ddns.net/bmupdate/version.txt");
+				req.Timeout= 2000;
+				resp = req.GetResponse();
+			} catch(WebException e)
+			{
+				return;
+			}
+
 			Version newVersion;
 			StreamReader s = new StreamReader(resp.GetResponseStream());
 

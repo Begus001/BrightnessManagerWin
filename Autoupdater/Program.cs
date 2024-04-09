@@ -26,6 +26,8 @@ namespace AutoUpdater
 				exepath = args[0];
 			}
 
+			Console.WriteLine("Please wait while the update fails?!");
+
 			exedir = Path.GetDirectoryName(exepath);
 
 			if (!Directory.Exists(exedir))
@@ -36,10 +38,10 @@ namespace AutoUpdater
 			if (!Directory.Exists(Path.GetDirectoryName(selfpath)))
 				Directory.CreateDirectory(Path.GetDirectoryName(selfpath));
 
-			Thread.Sleep(200);
+			Thread.Sleep(1000);
 
 			Directory.CreateDirectory(dir);
-			WebRequest req = WebRequest.CreateHttp("http://begus.ddns.net/bmupdate/BrightnessManagerWin.exe");
+			WebRequest req = WebRequest.CreateHttp("https://begus.ddns.net/bmupdate/BrightnessManagerWin.exe");
 			WebResponse resp = req.GetResponse();
 			Stream r = resp.GetResponseStream();
 			FileStream w = File.Open(tmp, FileMode.OpenOrCreate);
@@ -49,10 +51,22 @@ namespace AutoUpdater
 
 			w.Close();
 
-			if (File.Exists(selfpath))
-				File.Delete(selfpath);
+			Thread.Sleep(1000);
 
-			req = WebRequest.CreateHttp("http://begus.ddns.net/bmupdate/AutoUpdater.exe");
+			try
+			{
+				if (File.Exists(selfpath))
+				File.Delete(selfpath);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+				Console.WriteLine(e.StackTrace);
+				Console.ReadKey();
+				return;
+			}
+
+			req = WebRequest.CreateHttp("https://begus.ddns.net/bmupdate/AutoUpdater.exe");
 			resp = req.GetResponse();
 			r = resp.GetResponseStream();
 			w = File.Open(selfpath, FileMode.OpenOrCreate);
@@ -60,23 +74,40 @@ namespace AutoUpdater
 			for (long i = 0; i < resp.ContentLength; i++)
 				w.WriteByte((byte)r.ReadByte());
 
-			if (File.Exists(exepath))
-				File.Delete(exepath);
+			Thread.Sleep(1000);
 
-			Thread.Sleep(500);
+			try
+			{
+				if (File.Exists(exepath))
+					File.Delete(exepath);
+			} catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+				Console.WriteLine(e.StackTrace);
+				Console.ReadKey();
+				return;
+			}
+
+			Thread.Sleep(1000);
 
 			try
 			{
 				File.Move(tmp, exepath);
 			}
 			catch (Exception e)
-			{ 
+			{
 				Console.WriteLine(e.Message);
 				Console.WriteLine(e.StackTrace);
+				Console.ReadKey();
+				return;
 			}
+
+			Console.WriteLine("Update was (hopefully, maybe, perhaps) successful?!");
 
 			r.Close();
 			resp.Close();
+
+			Console.ReadKey();
 
 			Process.Start(exepath);
 		}
